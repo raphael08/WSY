@@ -18,13 +18,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 from django.core.management.utils import get_random_secret_key
 
-print(get_random_secret_key())
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-2jrzbt&)mz(4w9*7a%sic2ovtwv^q5ah39eswx!zpmw_1lw8!9'
-SECRET_KEY = get_random_secret_key()
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
