@@ -25,7 +25,7 @@ from django.core.management.utils import get_random_secret_key
 SECRET_KEY = 'django-insecure-2jrzbt&)mz(4w9*7a%sic2ovtwv^q5ah39eswx!zpmw_1lw8!9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 #EMAILS CONFIGURATIONS.
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
