@@ -30,8 +30,8 @@ class Profile(models.Model):
 
     
     auth_token = models.CharField(max_length=100,blank=True,null=True)
-    is_verified = models.BooleanField(default=False)
-    is_approved = models.BooleanField(default=False)
+    is_verified = models.BooleanField(default=True)
+    is_approved = models.BooleanField(default=True)
     
    
     phone_number = models.CharField(max_length=15, blank=True,null=True)

@@ -45,7 +45,7 @@ def createDevice(request):
                 deviceId=device
             )
             createf.save()
-            messages.success(request,'Fridge created succesfully.')
+            messages.success(request,'Device created succesfully.')
             return redirect('fridge_url')
     
         return redirect('fridge_url')
@@ -87,6 +87,8 @@ def userFList(request):
 
 def deviceMapView(request):
     try:
+      
+        
         userFInstance = Device.objects.all()
         
         geolocator = Nominatim(user_agent="my-app")  # Create a geolocat
@@ -96,7 +98,7 @@ def deviceMapView(request):
         tanzania = (-6.82349,39.26951)
         
 
-        m = folium.Map(location=tanzania, zoom_start=10)
+        m = folium.Map(location=tanzania, zoom_start=12,width='100%', height='100%')
         
         for i in userFInstance:
             origin_position = (float(i.lat), float(i.long))
@@ -205,3 +207,11 @@ def update(request,deviceno):
 #     print(origin_coord)
 
 
+
+
+def deletedevice(request,pk):
+    
+    Device.objects.filter(id=pk).delete()
+    
+    
+    return redirect('fridge_url')

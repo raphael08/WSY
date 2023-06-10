@@ -1,5 +1,5 @@
 from django.urls import path
-from fridge.views import *
+
 from uaa import views
 
 #paths for account app.
@@ -9,7 +9,7 @@ urlpatterns = [
     path('resetpassword/', views.ResetPasswordView, name='resetpassword_url'),
     path('RecoverPassword/<str:email>', views.RecoverPasswordView, name='RecoverPassword_url'),
     
-    path('dashboard/', deviceMapView, name='dashboard_url'),
+    path('dashboard/', views.deviceMapView, name='dashboard_url'),
     path('profile/', views.ProfileView, name='profile_url'),  
     path('updateProfile', views.UpdateProfileView, name='updateProfile_url'),
     path('updateProfilePic/', views.UpdateProfilePicView, name='updateProfilePic_url'),

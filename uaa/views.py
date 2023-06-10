@@ -5,7 +5,11 @@ from django.contrib.auth.models import Group
 from uaa.models import Profile,User
 from django.contrib.auth import authenticate,login,logout
 import uuid
-
+import folium
+import geocoder
+from fridge.models import Device
+from geopy.geocoders import ArcGIS,Nominatim
+from geopy.distance import geodesic
 from django.conf import settings
 from django.core.mail import EmailMessage
 from django.core.mail import send_mail
@@ -464,7 +468,47 @@ def ApproveUserView(request):
         return render(None, 'uaa/error500.html')
 
 
+def deviceMapView(request):
+    try:
+      
+        
+        userFInstance = Device.objects.all()
+        
+        geolocator = Nominatim(user_agent="my-app")  # Create a geolocat
+            
+       # Example: Keko coordinates
+          # Example: upanga coordinates
+        tanzania = (-6.82349,39.26951)
+        
 
+        m = folium.Map(location=tanzania, zoom_start=12,width='100%', height='100%')
+        
+        for i in userFInstance:
+            origin_position = (float(i.lat), float(i.long))
+            origin = geolocator.reverse(origin_position, exactly_one=True)
+            if i.status==True:
+                folium.Marker(
+                    location=(float(i.lat), float(i.long)), 
+                    # popup=orgin_place, 
+                    popup=f"<b><i><u>Origin Location:</u></i></b> {origin.address}",
+                    tooltip=origin.address,
+                    icon=folium.Icon(color='green')
+                    ).add_to(m)
+            else:
+               folium.Marker(
+                    location=(float(i.lat), float(i.long)), 
+                    # popup=orgin_place, 
+                    popup=f"<b><i><u>Origin Location:</u></i></b> {origin.address}",
+                    tooltip=origin.address,
+                    icon=folium.Icon(color='red')
+                    ).add_to(m) 
+        m = m._repr_html_()
+        
+    except:
+        return render(None, 'uaa/error500.html')
+
+    context = {'m':m}
+    return render(request,'map/userFmap.html',context)
         
 
 

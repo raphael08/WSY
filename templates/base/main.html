@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CRMS | NIT</title>
+  <title>WSY | DIT</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -96,8 +96,8 @@
   <aside class="main-sidebar elevation-4" style="">
     <!-- Brand Logo -->
     <a href="#" class="brand-link">
-      <img src="{% static 'dist/img/frlogo.jpg' %}" alt="TRC-CMMS" class="brand-image img-circle elevation-5" style="background-color: #ffffff80;elevation:5px;width:50px;height:50px;">
-      <span class="brand-text font-weight-light" style="color:white;">WSY</span>
+      {% comment %} <img src="{% static 'dist/img/frlogo.jpg' %}" alt="TRC-CMMS" class="brand-image img-circle elevation-5" style="background-color: #ffffff80;elevation:5px;width:50px;height:50px;"> {% endcomment %}
+      <span class="brand-text font-weight-light" style="color:white;"><p align="center">WSY</p></span>
     </a>
 
     <!-- Sidebar -->
@@ -109,8 +109,16 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
+               <li class="nav-item menu-open">
+                <a href="{% url 'dashboard_url' %}" class="nav-link" style="background: #3C3C3C;">
+                  <i class="nav-icon fas fa-globe" style="color:white;"></i>
+                  <p style="color:white;">
+                    dashboard
+                  </p>
+                </a>
+              </li>
           <li class="nav-item menu-open">
-            <a href="{% url 'profile_url' %}" class="nav-link" style="background: #3C3C3C;">
+            <a href="{% url 'profile_url' %}" class="nav-link">
               <i class="nav-icon fas fa-user" style="color:white;"></i>
               <p style="color:white;">
                 Profile
@@ -119,42 +127,26 @@
           </li>
 
           {% if request.user.is_superuser %}
-          <li class="nav-item">
-            <a href="#" class="nav-link" id="hovCol">
-              <i class="nav-icon fas fa-user-friends"></i>
-              <p>
-                System Users.
-                <i class="fas fa-angle-left right"></i>
+          <li class="nav-item menu-open">
+            <a href="{% url 'uaaUserList_url' %}" class="nav-link">
+              <i class="nav-icon fas fa-user-friends" style="color:white;"></i>
+              <p style="color:white;">
+                Users
               </p>
             </a>
-            
-            <ul class="nav nav-treeview">
-              <li class="nav-item" id="hovColor">
-                <a href="{% url 'uaaUserList_url' %}" class="nav-link">
-                  <i class="far fa-circle nav-icon" style="color:#ff9900
-                  ;"></i>
-                  <p style="color:white;">All users.</p>
-                </a>
-              </li>
-            </ul>
           </li>
+                
+                  
 {% endif %}
-          <li class="nav-item">
-            <a href="#" class="nav-link" id="hovCol">
-              <i class="nav-icon fas fa-store"></i>
-              <p>
-                Devices
-                <i class="fas fa-angle-left right"></i>
+          <li class="nav-item menu-open">
+            <a href="{% url 'fridge_url' %}" class="nav-link">
+              <i class="nav-icon fas fa-broadcast-tower" style="color:white;"></i>
+              <p style="color:white;">
+                Users
+               
               </p>
             </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item" id="hovColor">
-                <a href="{% url 'fridge_url' %}" class="nav-link">
-                  <i class="far fa-circle nav-icon" style="color:#ff9900
-                  ;"></i>
-                  <p style="color:white;">All Devices</p>
-                </a>
-              </li>
+          </li>
 
              {% comment %} <li class="nav-item" id="hovColor">
                 <a href="{% url 'userFList_url' %}" class="nav-link">
@@ -215,7 +207,7 @@
 
   <!-- Main Footer -->
   <footer class="main-footer">
-    <strong>Copyright &copy; 2022-2023 <a href="mailto:madukapcm@gmail.com">joshuaPetro</a>.</strong>
+    <strong>Copyright &copy; 2022-2023 <a href="mailto:madukapcm@gmail.com">DIT</a>.</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
       <b>Version</b> 1.0
