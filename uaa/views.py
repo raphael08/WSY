@@ -386,9 +386,11 @@ def UpdateUserView(request):
         if request.method == "POST":
             profileId = request.POST.get('profileId')
             Username = request.POST.get('Username') 
-            Email = request.POST.get('Email')
-            branchId = request.POST.get('branchId')
-            RoleId = request.POST.get('RoleId')
+            email = request.POST.get('email')
+            print("**********************")
+            print(Username)
+            # branchId = request.POST.get('branchId')
+            # RoleId = request.POST.get('RoleId')
             
             try:
                 requestUserInstance = request.user
@@ -406,28 +408,28 @@ def UpdateUserView(request):
             
             try:
                 userInstance.username = Username
-                userInstance.email = Email
+                userInstance.email = email
                 userInstance.save()
             except Exception as e:
                 print(e)
             
             try:
-                profileInstance.branch_id = branchId
+                # profileInstance.branch_id = branchId
                 profileInstance.updatedBy_id = request.user.id
                 profileInstance.save()
             except Exception as e:
                 print(e)
             
-            try:
-                newGroup = Group.objects.get(id=RoleId)
-                currentUserGroups = userInstance.groups.all()
-                #removing user to all roles.
-                for group in currentUserGroups:
-                    userInstance.groups.remove(group)
-                #add the user to new role
-                userInstance.groups.add(newGroup)
-            except Exception as e:
-                print(e)
+            # try:
+            #     newGroup = Group.objects.get(id=RoleId)
+            #     currentUserGroups = userInstance.groups.all()
+            #     #removing user to all roles.
+            #     for group in currentUserGroups:
+            #         userInstance.groups.remove(group)
+            #     #add the user to new role
+            #     userInstance.groups.add(newGroup)
+            # except Exception as e:
+            #     print(e)
             
             messages.success(request,'User Updated')
             return redirect('uaaUserList_url')
@@ -510,7 +512,12 @@ def deviceMapView(request):
     context = {'m':m}
     return render(request,'map/userFmap.html',context)
         
-
+def deleteUser(request,pk):
+    
+    User.objects.filter(id=pk).delete()
+    
+    
+    return redirect('uaaUserList_url')
 
 def LogoutView(request):
     logout(request)

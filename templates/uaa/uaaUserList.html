@@ -1,6 +1,6 @@
 {% extends 'base/main.html' %}
+{% load static %}
 {% block content %}
-
 <!-- Content Header (Page header) -->
 <section class="content-header">
   <div class="container-fluid" style="color:#0f0f0f;">
@@ -34,9 +34,6 @@
           <th>#</th>
           <th>Full name</th>
           <th>Email</th>
-          <th>Phone number(s)</th>
-          <th>Branch</th>
-          <th>Gender</th>
           <th>Actions</th>
         </tr>
         </thead>
@@ -45,11 +42,10 @@
         {% for allUser in userListData %}
         <tr>
           <td>{{ forloop.counter }}</td>
-          <td>{{ allUser.user.first_name }} {{ allUser.user.last_name }}</td>
+          <td>{{ allUser.user.username}}</td>
           <td>{{ allUser.user.email }}</td>
-          <td>{{ allUser.phone_number }}</td>
-          <td>{{ allUser.branch.name }}</td>
-          <td>
+          
+          {% comment %} <td>
             {% if allUser.gender == "1" %}
             Male
             {% elif allUser.gender == "2" %}
@@ -57,7 +53,7 @@
             {% else %}
             -
             {% endif %}
-          </td>
+          </td> {% endcomment %}
           <td>
             {% if allUser.user.is_active %}
             <a class="fa fa-check btn-sm btn-success" title="block" href="{% url 'userStatusView_url' %}?userStatus_id={{allUser.user.id}}"></a>
@@ -65,9 +61,8 @@
             <a class="fas fa-unlock btn-sm btn-danger" title="unblock" href="{% url 'userStatusView_url' %}?userStatus_id={{allUser.user.id}}"></a>
             {% endif %}
             <a class="fa fa-edit btn-sm btn-secondary" title="edit" href="#" data-toggle="modal" data-target="#modal-secondary{{allUser.id}}"></a>
-            {% if not allUser.is_approved %}
-            <a class="fa fa-check btn-sm btn-warning" title="approve" href="{% url 'approveUser_url' %}?approveProfile_id={{allUser.id}}"></a>
-            {% endif %}
+            <a class="fa fa-trash btn-sm" style="background-color:#8B0000;" title="Delete Device" href="#" data-toggle="modal" data-target="#modal-assignUserFridge{{allUser.id}}"></a>
+            
           </td>
         </tr>
         {% endfor %}
@@ -78,9 +73,7 @@
           <th>#</th>
           <th>Full name</th>
           <th>Email</th>
-          <th>Phone number(s)</th>
-          <th>Branch</th>
-          <th>Gender</th>
+          
           <th>Actions</th>
         </tr>
         </tfoot>
@@ -188,7 +181,7 @@
         </div>
         <div class="modal-body">
 
-          <div class="input-group mb-3">
+          {% comment %} <div class="input-group mb-3">
             <p class="form-control">CreatedBy: <i>{{allUser.createdBy}},@{{ allUser.createdAt|date:"d/m/Y" }}</i></p>
               <div class="input-group-append">
                 <div class="input-group-text">
@@ -204,7 +197,7 @@
                     <span class="far fa-clock"></span>
                   </div>
                 </div>
-              </div>
+              </div> {% endcomment %}
             <form action="{% url 'updateUser_url' %}" method="POST">
                 {% csrf_token %}
 
@@ -218,14 +211,14 @@
                   </div>
                 </div>
                 <div class="input-group mb-3">
-                  <input type="email" name="Email" class="form-control" placeholder="Email" value="{{allUser.user.email}}" required>
+                  <input type="email" name="email" class="form-control" placeholder="Email" value="{{allUser.user.email}}" required>
                   <div class="input-group-append">
                     <div class="input-group-text">
                       <span class="fas fa-envelope"></span>
                     </div>
                   </div>
                 </div>
-                <div class="input-group mb-3">
+                {% comment %} <div class="input-group mb-3">
                   <select name="workshopId" class="form-control">
                     {% for branch in branchObjectData %}
                     {% if allUser.branch == branch %}
@@ -240,8 +233,8 @@
                       <span class="fas fa-building"></span>
                     </div>
                   </div>
-                </div>
-                <div class="input-group mb-3">
+                </div> {% endcomment %}
+                {% comment %} <div class="input-group mb-3">
                   <select name="RoleId" class="form-control">
                       {% for roleInstance in roleInstanceData %}
                       {% if roleInstance in allUser.user.groups.all %}
@@ -256,10 +249,39 @@
                       <span class="fas fa-list"></span>
                     </div>
                   </div>
-                </div>
+                </div> {% endcomment %}
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-outline-light">Save changes</button>
+                  </div>
+              </form>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+
+
+
+  <div class="modal fade" id="modal-assignUserFridge{{allUser.id}}">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Delete User</h4>
+          
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to delete </p>
+
+            <form action="{% url 'deleteUser' pk=allUser.user.id %}" method="POST">
+                {% csrf_token %}
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-outline-light">Delete</button>
                   </div>
               </form>
         </div>

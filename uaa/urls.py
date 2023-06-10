@@ -28,7 +28,7 @@ urlpatterns = [
     # path('branch/', views.BranchView, name='branch_url'),
     # path('createBranch/', views.CreateBranchView, name='createBranch_url'),
     # path('branchStatus/', views.BranchStatusView, name="branchStatus_url"),
-    # path('deleteBranch/<str:pk>', views.DeleteBranchView, name='deleteBranch_url'),
+    path('deleteUser/<str:pk>/', views.deleteUser, name='deleteUser'),
     
     path('logout/',views.LogoutView, name='logout_url'),
 ]
