@@ -91,7 +91,7 @@ def deviceMapView(request):
         
         userFInstance = Device.objects.all()
         
-        geolocator = Nominatim(user_agent="my-app")  # Create a geolocat
+        geolocator = Nominatim(user_agent="MyGeolocationApp/1.0")  # Create a geolocat
             
        # Example: Keko coordinates
           # Example: upanga coordinates
