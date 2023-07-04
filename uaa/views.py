@@ -471,11 +471,11 @@ def ApproveUserView(request):
 
 
 def deviceMapView(request):
-    # try:
+    try:
       
         
         userFInstance = Device.objects.all()
-        
+        print(request.user.is_superuser)
         #geolocator = Nominatim(user_agent='my-app')  # Create a geolocat
         #geolocator = ArcGIS() 
         #geolocator = GeoNames(username="rex08") 
@@ -507,12 +507,13 @@ def deviceMapView(request):
                     icon=folium.Icon(color='red')
                     ).add_to(m) 
         m = m._repr_html_()
-        
-    # except:
-    #     return render(None, 'uaa/error500.html')
-
         context = {'m':m}
         return render(request,'map/userFmap.html',context)
+        
+    except:
+        return render(None, 'uaa/error500.html')
+
+      
         
 def deleteUser(request,pk):
     
