@@ -86,7 +86,7 @@ def userFList(request):
        
 
 def deviceMapView(request):
-    try:
+    # try:
       
         
         userFInstance = Device.objects.all()
@@ -121,11 +121,13 @@ def deviceMapView(request):
                     ).add_to(m) 
         m = m._repr_html_()
         
-    except:
-        return render(None, 'uaa/error500.html')
+  
 
-    context = {'m':m}
-    return render(request,'map/userFmap.html',context)
+        context = {'m':m}
+        return render(request,'map/userFmap.html',context)
+
+    # except:
+    #     return render(None, 'uaa/error500.html')
 
 
 
