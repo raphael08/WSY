@@ -8,7 +8,7 @@ import uuid
 import folium
 import geocoder
 from fridge.models import Device
-from geopy.geocoders import ArcGIS,Nominatim
+from geopy.geocoders import ArcGIS,Nominatim,GeoNames,Photon
 from geopy.distance import geodesic
 from django.conf import settings
 from django.core.mail import EmailMessage
@@ -476,8 +476,10 @@ def deviceMapView(request):
         
         userFInstance = Device.objects.all()
         
-        geolocator = Nominatim(user_agent='my-app')  # Create a geolocat
-        #arcgis_geocoder = ArcGIS()  
+        #geolocator = Nominatim(user_agent='my-app')  # Create a geolocat
+        #geolocator = ArcGIS() 
+        #geolocator = GeoNames(username="rex08") 
+        geolocator = Photon(user_agent="my_application")
        # Example: Keko coordinates
           # Example: upanga coordinates
         tanzania = (-6.82349,39.26951)
