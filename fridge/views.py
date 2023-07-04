@@ -134,7 +134,7 @@ def deviceMapView(request):
 #http://127.0.0.1:8000/fridge/map?latitude=-6.807639999999935&longitude=39.280410000000074
 @csrf_exempt  
 def map(request,deviceno,latitude,longitude):
-#  try:
+ try:
     
    
 
@@ -154,9 +154,9 @@ def map(request,deviceno,latitude,longitude):
   
        
         #return redirect('dashboard_url')
-    return JsonResponse({'lat':latitude,'longitude':longitude})   
-#  except:
-#     return JsonResponse({'lat':latitude,'longitude':longitude})      
+    return HttpResponse('success')
+ except:
+    return HttpResponse('false')      
 
 
 def location(request):
@@ -190,7 +190,7 @@ def update(request,deviceno):
    
   else:
       print("False")
-  return JsonResponse({'data':us}) 
+  return redirect('/device')
 
 ############### testing codes for decoding origin name to get latitude and longtude.. #########
     # geolocator = Nominatim(user_agent="map_app")

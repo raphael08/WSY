@@ -52,9 +52,9 @@
        
           <td>
             {% if fod.status == False %}
-            <i class="fa fa-check" title="approve" href="#"></i>
+            <a href="/device/update/{{ fod.deviceId }}"><i class="fa fa-check"></i></a>
             {% else %}
-            <i class="fa fa-times" title="approve" href="#"></i>
+            <i class="fa fa-times" title="Dismiss" href="#"></i>
             {% endif %}
           </td>
           <td>{{ fod.updatedAt }}</td>
