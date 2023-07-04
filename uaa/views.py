@@ -476,8 +476,8 @@ def deviceMapView(request):
         
         userFInstance = Device.objects.all()
         
-        geolocator = Nominatim(user_agent="my-app")  # Create a geolocat
-            
+        #geolocator = Nominatim(user_agent="my-app")  # Create a geolocat
+        arcgis_geocoder = ArcGIS()  
        # Example: Keko coordinates
           # Example: upanga coordinates
         tanzania = (-6.82349,39.26951)
@@ -487,7 +487,7 @@ def deviceMapView(request):
         
         for i in userFInstance:
             origin_position = (float(i.lat), float(i.long))
-            origin = geolocator.reverse(origin_position, exactly_one=True)
+            origin = arcgis_geocoder.reverse(origin_position)
             if i.status==True:
                 folium.Marker(
                     location=(float(i.lat), float(i.long)), 
