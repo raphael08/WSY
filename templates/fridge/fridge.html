@@ -57,7 +57,7 @@
             <i class="fa fa-times" title="Dismiss" href="#"></i>
             {% endif %}
           </td>
-          <td>{{ fod.updatedAt }}</td>
+          <td>{{ fod.updatedAt | date:'M d Y , H:i'}}</td>
           <td>
             <a class="fa fa-edit btn-sm btn-secondary" title="edit" href="#" data-toggle="modal" data-target="#modal-UpdateFridge{{fod.id}}"></a>
             {% if not fod.isAssigned %}

@@ -11,12 +11,14 @@ from django.views.decorators.csrf import *
 from . models import Device
 from uaa.models import User,Profile
 
-from datetime import datetime, timedelta,timezone
+import datetime
+
 #sending email.
 from django.conf import settings
 from django.core.mail import send_mail
 
 import time as tm
+date =  datetime.datetime.now()
 # Create your views here.
 def deviceView(request):
     try:
@@ -42,7 +44,7 @@ def createDevice(request):
                 return redirect('fridge_url')
         
             createf = Device.objects.create(
-                deviceId=device
+                deviceId=device,
             )
             createf.save()
             messages.success(request,'Device created succesfully.')
@@ -50,8 +52,8 @@ def createDevice(request):
     
         return redirect('fridge_url')
         
-    except:
-        return render(None, 'uaa/error500.html')
+    except Exception as e:
+       return HttpResponse(e)
     
 def updateDevice(request):
     try:
@@ -59,7 +61,7 @@ def updateDevice(request):
             FridgeId = request.POST.get('FridgeId')
             deviceId = request.POST.get('deviceId')
             #Capacity = request.POST.get('Capacity')
-        
+            
             Device.objects.filter(id=FridgeId).update(
                 deviceId=deviceId
             )
@@ -148,7 +150,7 @@ def map(request,deviceno,latitude,longitude):
         # Example: Keko coordinates
         latitude = float(latitude)
         longitude = float(longitude) # Example: upanga coordinates    
-        d = Device.objects.filter(deviceId=deviceno).update(lat=latitude,long=longitude,status=False)       
+        d = Device.objects.filter(deviceId=deviceno).update(lat=latitude,long=longitude,updatedAt=date,status=False)       
         #return redirect('dashboard_url')
         return HttpResponse('success')
     else:

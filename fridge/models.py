@@ -1,13 +1,14 @@
 from django.db import models
-
+import datetime
 import uuid   
+
 class Device(models.Model):
     id = models.UUIDField(editable=False, default=uuid.uuid4, unique=True,primary_key=True)
     deviceId = models.CharField(max_length=25,blank=True,null=True)
     lat = models.CharField(max_length=25,blank=True,null=True)
     long = models.CharField(max_length=25,blank=True,null=True)
     createdAt = models.DateTimeField(auto_now_add=True)
-    updatedAt = models.DateTimeField(auto_now=True)
+    updatedAt = models.DateTimeField(null=True)
     status= models.BooleanField(default=True)
     
     class Meta:
