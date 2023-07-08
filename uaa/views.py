@@ -510,8 +510,9 @@ def deviceMapView(request):
         context = {'m':m}
         return render(request,'map/userFmap.html',context)
         
-    except:
-        return render(None, 'uaa/error500.html')
+    except Exception as e:
+        return HttpResponse(e)
+        #return render(None, 'uaa/error500.html')
 
       
         

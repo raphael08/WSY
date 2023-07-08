@@ -138,9 +138,6 @@ def deviceMapView(request):
 @csrf_exempt  
 def map(request,deviceno,latitude,longitude):
  try:
-    
-   
-
     # Get current date and time
    
     # print("Date and Time 5 Minutes Later:", later_time.strftime("%Y-%m-%d %H:%M:%S"))
@@ -151,13 +148,11 @@ def map(request,deviceno,latitude,longitude):
         # Example: Keko coordinates
         latitude = float(latitude)
         longitude = float(longitude) # Example: upanga coordinates    
-        d = Device.objects.filter(deviceId=deviceno).update(lat=latitude,long=longitude,status=False)
- 
-    
-  
-       
+        d = Device.objects.filter(deviceId=deviceno).update(lat=latitude,long=longitude,status=False)       
         #return redirect('dashboard_url')
-    return HttpResponse('success')
+        return HttpResponse('success')
+    else:
+       return HttpResponse('No device')  
  except:
     return HttpResponse('false')      
 
